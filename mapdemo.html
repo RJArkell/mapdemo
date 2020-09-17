@@ -79,7 +79,7 @@
       zoom: 14.4
     });
 
-    var toggleableLayerIds = ['teams', 'areas'];
+    var toggleableLayerIds = ['areas', 'other', 'community-outreach'];
 
     for (var i = 0; i < toggleableLayerIds.length; i++) {
       var id = toggleableLayerIds[i];
@@ -105,7 +105,7 @@
       layers.appendChild(link);
     }
 
-    map.on('click', 'teams', function (e) {
+    map.on('click', 'other', function (e) {
       var coordinates = e.features[0].geometry.coordinates.slice();
       var description = e.features[0].properties.description;
       while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -118,11 +118,32 @@
         .addTo(map);
     });
 
-    map.on('mouseenter', 'teams', function () {
+    map.on('mouseenter', 'other', function () {
       map.getCanvas().style.cursor = 'pointer';
     });
 
-    map.on('mouseleave', 'teams', function () {
+    map.on('mouseleave', 'other', function () {
+      map.getCanvas().style.cursor = '';
+    });
+
+    map.on('click', 'community-outreach', function (e) {
+      var coordinates = e.features[0].geometry.coordinates.slice();
+      var description = e.features[0].properties.description;
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(description)
+        .addTo(map);
+    });
+
+    map.on('mouseenter', 'community-outreach', function () {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'community-outreach', function () {
       map.getCanvas().style.cursor = '';
     });
 
