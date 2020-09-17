@@ -79,7 +79,7 @@
       zoom: 14.4
     });
 
-    var toggleableLayerIds = ['areas', 'other', 'community-outreach'];
+    var toggleableLayerIds = ['areas', 'all-teams', 'community-outreach'];
 
     for (var i = 0; i < toggleableLayerIds.length; i++) {
       var id = toggleableLayerIds[i];
@@ -105,7 +105,7 @@
       layers.appendChild(link);
     }
 
-    map.on('click', 'other', function (e) {
+    map.on('click', 'all-teams', function (e) {
       var coordinates = e.features[0].geometry.coordinates.slice();
       var description = e.features[0].properties.description;
       while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -118,11 +118,11 @@
         .addTo(map);
     });
 
-    map.on('mouseenter', 'other', function () {
+    map.on('mouseenter', 'all-teams', function () {
       map.getCanvas().style.cursor = 'pointer';
     });
 
-    map.on('mouseleave', 'other', function () {
+    map.on('mouseleave', 'all-teams', function () {
       map.getCanvas().style.cursor = '';
     });
 
